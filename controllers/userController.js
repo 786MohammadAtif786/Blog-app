@@ -2,6 +2,7 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const response = require("../utils/response");
+var colors = require('colors');
 
 exports.register = async (req, res) => {
   try {
@@ -15,6 +16,7 @@ exports.register = async (req, res) => {
     return response(res, true, user, "User registered successfully", 201);
   } catch (error) {
     if(error.code === 11000) {
+      console.log("Email Already exists.".red);
       return response(res, false, null, "Email Already exists.", 401);
     }
     return response(res, false, null, "Internal server error", 500);
